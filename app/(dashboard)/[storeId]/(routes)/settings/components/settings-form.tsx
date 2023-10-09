@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertModal } from "@/components/modal/alert-modal";
+import { ApiAlert } from "@/components/api-alert";
 
 interface SettingsFormProps {
   initialData: Store;
@@ -125,6 +126,12 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="test"
+        description={`${origin}/api/${params.storeId}`}
+        variant="public"
+      />
     </>
   );
 };
