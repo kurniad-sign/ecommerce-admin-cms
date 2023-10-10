@@ -38,9 +38,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.success("Product Deleted");
     } catch (error) {
       console.error(error);
-      toast.error(
-        "Make sure you removed all categories using this billboard first"
-      );
+      toast.error("Something when wrong");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -70,7 +68,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/products/${data.id}`)
             }
           >
             <Edit className="mr-2 h-4 w-4" />
