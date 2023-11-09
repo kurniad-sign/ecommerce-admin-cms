@@ -1,8 +1,10 @@
-import { format } from "date-fns";
-import prismadb from "@/lib/db";
-import { ProductClient } from "./components/client";
-import { ProductColumn } from "./components/columns";
-import { priceFormatter } from "@/lib/utils";
+import { format } from 'date-fns';
+
+import prismadb from '@/lib/db';
+import { priceFormatter } from '@/lib/utils';
+
+import { ProductClient } from './components/client';
+import { ProductColumn } from './components/columns';
 
 export default async function ProductsPage({
   params,
@@ -14,7 +16,7 @@ export default async function ProductsPage({
       storeId: params.storeId,
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
     include: {
       category: true,
@@ -32,7 +34,7 @@ export default async function ProductsPage({
     category: item.category.name,
     size: item.size.name,
     color: item.color.value,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 
   return (

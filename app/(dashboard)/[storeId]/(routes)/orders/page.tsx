@@ -1,8 +1,10 @@
-import { format } from "date-fns";
-import prismadb from "@/lib/db";
-import { OrderClient } from "./components/client";
-import { OrderColumn } from "./components/columns";
-import { priceFormatter } from "@/lib/utils";
+import { format } from 'date-fns';
+
+import prismadb from '@/lib/db';
+import { priceFormatter } from '@/lib/utils';
+
+import { OrderClient } from './components/client';
+import { OrderColumn } from './components/columns';
 
 export default async function OrdersPage({
   params,
@@ -21,7 +23,7 @@ export default async function OrdersPage({
       },
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 
@@ -29,14 +31,14 @@ export default async function OrdersPage({
     id: item.id,
     phone: item.phone,
     address: item.address,
-    products: item.orderItems.map((order) => order.product.name).join(", "),
+    products: item.orderItems.map((order) => order.product.name).join(', '),
     totalPrice: priceFormatter.format(
       item.orderItems.reduce((total, item) => {
         return total + Number(item.product.price);
       }, 0)
     ),
     isPaid: item.isPaid,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 
   return (

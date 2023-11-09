@@ -1,35 +1,37 @@
-"use client";
+'use client';
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CopyIcon, Server } from "lucide-react";
-import { Badge, BadgeProps } from "@/components/ui/badge";
-import { Button } from "./ui/button";
-import toast from "react-hot-toast";
+import { CopyIcon, Server } from 'lucide-react';
+import toast from 'react-hot-toast';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge, BadgeProps } from '@/components/ui/badge';
+
+import { Button } from './ui/button';
 
 interface ApiAlertProps {
   title: string;
   description: string;
-  variant: "public" | "admin";
+  variant: 'public' | 'admin';
 }
 
-const textMap: Record<ApiAlertProps["variant"], string> = {
-  public: "Public",
-  admin: "Admin",
+const textMap: Record<ApiAlertProps['variant'], string> = {
+  public: 'Public',
+  admin: 'Admin',
 };
 
-const variantMap: Record<ApiAlertProps["variant"], BadgeProps["variant"]> = {
-  public: "secondary",
-  admin: "destructive",
+const variantMap: Record<ApiAlertProps['variant'], BadgeProps['variant']> = {
+  public: 'secondary',
+  admin: 'destructive',
 };
 
 export const ApiAlert: React.FC<ApiAlertProps> = ({
   description,
   title,
-  variant = "public",
+  variant = 'public',
 }) => {
   const onCopy = () => {
     navigator.clipboard.writeText(description);
-    toast.success("API Route copied to the clipboard.");
+    toast.success('API Route copied to the clipboard.');
   };
 
   return (

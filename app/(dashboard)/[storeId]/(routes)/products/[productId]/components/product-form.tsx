@@ -1,15 +1,18 @@
-"use client";
+'use client';
 
-import { Category, Color, Image, Product, Size } from "@prisma/client";
-import { Trash } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
-import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Category, Color, Image, Product, Size } from '@prisma/client';
+import axios from 'axios';
+import { Trash } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button";
+import { AlertModal } from '@/components/modal/alert-modal';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -18,21 +21,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertModal } from "@/components/modal/alert-modal";
-import { ImageUpload } from "@/components/ui/image-upload";
+} from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
+import { ImageUpload } from '@/components/ui/image-upload';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 
 interface ProductFormProps {
   initialData:
@@ -78,21 +78,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           price: parseFloat(String(initialData?.price)),
         }
       : {
-          name: "",
+          name: '',
           images: [],
           price: 0,
-          categoryId: "",
-          colorId: "",
-          sizeId: "",
+          categoryId: '',
+          colorId: '',
+          sizeId: '',
           isFeatured: false,
           isArchived: false,
         },
   });
 
-  const title = initialData ? "Edit Products" : "Create Products";
-  const description = initialData ? "Edit a product" : "Add a new product";
-  const toastMessage = initialData ? "Product updated" : "Product created";
-  const action = initialData ? "Save Changes" : "Create";
+  const title = initialData ? 'Edit Products' : 'Create Products';
+  const description = initialData ? 'Edit a product' : 'Add a new product';
+  const toastMessage = initialData ? 'Product updated' : 'Product created';
+  const action = initialData ? 'Save Changes' : 'Create';
 
   const onSubmit = async (data: ProductFormValue) => {
     try {
@@ -110,7 +110,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       toast.success(toastMessage);
     } catch (error) {
       console.error(error);
-      toast.error("Something when wrong");
+      toast.error('Something when wrong');
     } finally {
       setLoading(false);
     }
@@ -122,10 +122,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
       router.refresh();
       router.push(`/${params.storeId}/products`);
-      toast.success("Product Deleted");
+      toast.success('Product Deleted');
     } catch (error) {
       console.error(error);
-      toast.error("Something when wrong");
+      toast.error('Something when wrong');
     } finally {
       setLoading(false);
       setOpen(false);

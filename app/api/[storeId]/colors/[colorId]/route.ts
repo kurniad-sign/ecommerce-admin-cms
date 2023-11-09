@@ -1,6 +1,7 @@
-import prismadb from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+
+import prismadb from '@/lib/db';
 
 export async function GET(
   req: Request,
@@ -8,7 +9,7 @@ export async function GET(
 ) {
   try {
     if (!params.colorId) {
-      return new NextResponse("COLOR ID is Required", { status: 400 });
+      return new NextResponse('COLOR ID is Required', { status: 400 });
     }
 
     const color = await prismadb.color.findUnique({
@@ -20,7 +21,7 @@ export async function GET(
     return NextResponse.json(color);
   } catch (error) {
     console.error(`[COLOR_GET] ${error}`);
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }
 
@@ -34,19 +35,19 @@ export async function PATCH(
     const { name, value } = body;
 
     if (!userId) {
-      return new NextResponse("Unauthenticated Account", { status: 401 });
+      return new NextResponse('Unauthenticated Account', { status: 401 });
     }
 
     if (!name) {
-      return new NextResponse("Name is Required", { status: 400 });
+      return new NextResponse('Name is Required', { status: 400 });
     }
 
     if (!value) {
-      return new NextResponse("Value is Required", { status: 400 });
+      return new NextResponse('Value is Required', { status: 400 });
     }
 
     if (!params.colorId) {
-      return new NextResponse("Color ID is Required", { status: 400 });
+      return new NextResponse('Color ID is Required', { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -57,7 +58,7 @@ export async function PATCH(
     });
 
     if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
+      return new NextResponse('Unauthorized', { status: 403 });
     }
 
     const color = await prismadb.color.updateMany({
@@ -73,7 +74,7 @@ export async function PATCH(
     return NextResponse.json(color);
   } catch (error) {
     console.error(`[COLOR_PATCH] ${error}`);
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }
 
@@ -84,11 +85,11 @@ export async function DELETE(
   try {
     const { userId } = auth();
     if (!userId) {
-      return new NextResponse("Unauthenticated Account", { status: 401 });
+      return new NextResponse('Unauthenticated Account', { status: 401 });
     }
 
     if (!params.colorId) {
-      return new NextResponse("Color ID is Required", { status: 400 });
+      return new NextResponse('Color ID is Required', { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -99,7 +100,7 @@ export async function DELETE(
     });
 
     if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
+      return new NextResponse('Unauthorized', { status: 403 });
     }
 
     const color = await prismadb.color.deleteMany({
@@ -111,6 +112,6 @@ export async function DELETE(
     return NextResponse.json(color);
   } catch (error) {
     console.error(`[COLOR_DELETE] ${error}`);
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }

@@ -1,5 +1,6 @@
-import prismadb from "@/lib/db";
-import { SizeForm } from "./components/size-form";
+import prismadb from '@/lib/db';
+
+import { SizeForm } from './components/size-form';
 
 export default async function SizePage({
   params,

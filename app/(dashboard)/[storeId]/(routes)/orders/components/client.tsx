@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from '@/components/ui/data-table';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
 
-import { OrderColumn, columns } from "./columns";
+import { columns, OrderColumn } from './columns';
 
 interface OrderClientProps {
   data: OrderColumn[];

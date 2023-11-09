@@ -1,5 +1,6 @@
-import prismadb from "@/lib/db";
-import { CategoryForm } from "./components/category-form";
+import prismadb from '@/lib/db';
+
+import { CategoryForm } from './components/category-form';
 
 export default async function BillboardPage({
   params,

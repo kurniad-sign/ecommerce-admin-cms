@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
-import prismadb from "@/lib/db";
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+
+import prismadb from '@/lib/db';
 
 export async function POST(
   req: Request,
@@ -13,19 +14,19 @@ export async function POST(
     const { label, imageUrl } = body;
 
     if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
+      return new NextResponse('Unauthenticated', { status: 401 });
     }
 
     if (!label) {
-      return new NextResponse("Label is Required", { status: 400 });
+      return new NextResponse('Label is Required', { status: 400 });
     }
 
     if (!imageUrl) {
-      return new NextResponse("Image URL is Required", { status: 400 });
+      return new NextResponse('Image URL is Required', { status: 400 });
     }
 
     if (!params.storeId) {
-      return new NextResponse("Store ID is Required", { status: 400 });
+      return new NextResponse('Store ID is Required', { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -36,7 +37,7 @@ export async function POST(
     });
 
     if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
+      return new NextResponse('Unauthorized', { status: 403 });
     }
 
     const billboard = await prismadb.billboard.create({
@@ -51,7 +52,7 @@ export async function POST(
   } catch (error) {
     console.error(`[BILLBOARD_POST] ${error}`);
 
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }
 
@@ -61,7 +62,7 @@ export async function GET(
 ) {
   try {
     if (!params.storeId) {
-      return new NextResponse("Store ID is Required", { status: 400 });
+      return new NextResponse('Store ID is Required', { status: 400 });
     }
 
     const billboards = await prismadb.billboard.findMany({
@@ -74,6 +75,6 @@ export async function GET(
   } catch (error) {
     console.error(`[BILLBOARD_GET] ${error}`);
 
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }

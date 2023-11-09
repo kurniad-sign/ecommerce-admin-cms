@@ -1,5 +1,6 @@
-import prismadb from "@/lib/db";
-import { ColorForm } from "./components/color-form";
+import prismadb from '@/lib/db';
+
+import { ColorForm } from './components/color-form';
 
 export default async function ColorPage({
   params,

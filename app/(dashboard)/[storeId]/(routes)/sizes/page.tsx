@@ -1,7 +1,9 @@
-import { format } from "date-fns";
-import prismadb from "@/lib/db";
-import { SizesClient } from "./components/client";
-import { SizeColumn } from "./components/columns";
+import { format } from 'date-fns';
+
+import prismadb from '@/lib/db';
+
+import { SizesClient } from './components/client';
+import { SizeColumn } from './components/columns';
 
 export default async function SizesPage({
   params,
@@ -13,7 +15,7 @@ export default async function SizesPage({
       storeId: params.storeId,
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 
@@ -21,7 +23,7 @@ export default async function SizesPage({
     id: item.id,
     name: item.name,
     value: item.value,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 
   return (

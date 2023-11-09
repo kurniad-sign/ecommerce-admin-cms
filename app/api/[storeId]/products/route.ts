@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
-import prismadb from "@/lib/db";
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+
+import prismadb from '@/lib/db';
 
 export async function POST(
   req: Request,
@@ -22,28 +23,28 @@ export async function POST(
     } = body;
 
     if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
+      return new NextResponse('Unauthenticated', { status: 401 });
     }
     if (!name) {
-      return new NextResponse("Name is Required", { status: 400 });
+      return new NextResponse('Name is Required', { status: 400 });
     }
     if (!images || !images.length) {
-      return new NextResponse("Images are required", { status: 400 });
+      return new NextResponse('Images are required', { status: 400 });
     }
     if (!price) {
-      return new NextResponse("Price is Required", { status: 400 });
+      return new NextResponse('Price is Required', { status: 400 });
     }
     if (!categoryId) {
-      return new NextResponse("Category ID is Required", { status: 400 });
+      return new NextResponse('Category ID is Required', { status: 400 });
     }
     if (!sizeId) {
-      return new NextResponse("Size ID Required", { status: 400 });
+      return new NextResponse('Size ID Required', { status: 400 });
     }
     if (!colorId) {
-      return new NextResponse("Color ID is Required", { status: 400 });
+      return new NextResponse('Color ID is Required', { status: 400 });
     }
     if (!params.storeId) {
-      return new NextResponse("Store ID is Required", { status: 400 });
+      return new NextResponse('Store ID is Required', { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -54,7 +55,7 @@ export async function POST(
     });
 
     if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
+      return new NextResponse('Unauthorized', { status: 403 });
     }
 
     const product = await prismadb.product.create({
@@ -79,7 +80,7 @@ export async function POST(
   } catch (error) {
     console.error(`[PRODUCT_POST] ${error}`);
 
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }
 
@@ -89,13 +90,13 @@ export async function GET(
 ) {
   try {
     const { searchParams } = new URL(req.url);
-    const categoryId = searchParams.get("categoryId") || undefined;
-    const colorId = searchParams.get("colorId") || undefined;
-    const sizeId = searchParams.get("sizeId") || undefined;
-    const isFeatured = searchParams.get("isFeatured");
+    const categoryId = searchParams.get('categoryId') || undefined;
+    const colorId = searchParams.get('colorId') || undefined;
+    const sizeId = searchParams.get('sizeId') || undefined;
+    const isFeatured = searchParams.get('isFeatured');
 
     if (!params.storeId) {
-      return new NextResponse("Store ID is Required", { status: 400 });
+      return new NextResponse('Store ID is Required', { status: 400 });
     }
 
     const products = await prismadb.product.findMany({
@@ -114,7 +115,7 @@ export async function GET(
         size: true,
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     });
 
@@ -122,6 +123,6 @@ export async function GET(
   } catch (error) {
     console.error(`[PRODUCTS_GET] ${error}`);
 
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }

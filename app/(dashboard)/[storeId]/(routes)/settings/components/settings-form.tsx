@@ -1,15 +1,19 @@
-"use client";
+'use client';
 
-import { Store } from "@prisma/client";
-import { Trash } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
-import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { useOrigin } from '@/hooks/use-origin';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Store } from '@prisma/client';
+import axios from 'axios';
+import { Trash } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button";
+import { ApiAlert } from '@/components/api-alert';
+import { AlertModal } from '@/components/modal/alert-modal';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -17,14 +21,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertModal } from "@/components/modal/alert-modal";
-import { ApiAlert } from "@/components/api-alert";
-import { useOrigin } from "@/hooks/use-origin";
+} from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 
 interface SettingsFormProps {
   initialData: Store;
@@ -54,10 +54,10 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
-      toast.success("Succesfully update store.");
+      toast.success('Succesfully update store.');
     } catch (error) {
       console.error(error);
-      toast.error("Error when updating store");
+      toast.error('Error when updating store');
     } finally {
       setLoading(false);
     }
@@ -68,11 +68,11 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.delete(`/api/stores/${params.storeId}`);
       router.refresh();
-      router.push("/");
-      toast.success("Successfully deleted store");
+      router.push('/');
+      toast.success('Successfully deleted store');
     } catch (error) {
       console.error(error);
-      toast.error("Make sure you removed all products and categories first");
+      toast.error('Make sure you removed all products and categories first');
     } finally {
       setLoading(false);
       setOpen(false);

@@ -1,4 +1,4 @@
-import prismadb from "@/lib/db";
+import prismadb from '@/lib/db';
 
 export const getSalesCount = async (storeId: string) => {
   const salesCount = await prismadb.order.count({

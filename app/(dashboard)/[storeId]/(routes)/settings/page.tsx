@@ -1,7 +1,9 @@
-import prismadb from "@/lib/db";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
-import { SettingsForm } from "./components/settings-form";
+import { redirect } from 'next/navigation';
+import { auth } from '@clerk/nextjs';
+
+import prismadb from '@/lib/db';
+
+import { SettingsForm } from './components/settings-form';
 
 interface SettingsPageProps {
   params: {
@@ -12,7 +14,7 @@ interface SettingsPageProps {
 export default async function SettingsPage({ params }: SettingsPageProps) {
   const { userId } = auth();
 
-  if (!userId) redirect("/sign-in");
+  if (!userId) redirect('/sign-in');
 
   const store = await prismadb.store.findFirst({
     where: {
@@ -21,7 +23,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
     },
   });
 
-  if (!store) redirect("/");
+  if (!store) redirect('/');
 
   return (
     <div className="flex-col">

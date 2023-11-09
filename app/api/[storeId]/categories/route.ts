@@ -1,6 +1,7 @@
-import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
-import prismadb from "@/lib/db";
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
+
+import prismadb from '@/lib/db';
 
 export async function POST(
   req: Request,
@@ -13,19 +14,19 @@ export async function POST(
     const { name, billboardId } = body;
 
     if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
+      return new NextResponse('Unauthenticated', { status: 401 });
     }
 
     if (!name) {
-      return new NextResponse("Name is Required", { status: 400 });
+      return new NextResponse('Name is Required', { status: 400 });
     }
 
     if (!billboardId) {
-      return new NextResponse("Billboard Id is Required", { status: 400 });
+      return new NextResponse('Billboard Id is Required', { status: 400 });
     }
 
     if (!params.storeId) {
-      return new NextResponse("Store ID is Required", { status: 400 });
+      return new NextResponse('Store ID is Required', { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -36,7 +37,7 @@ export async function POST(
     });
 
     if (!storeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
+      return new NextResponse('Unauthorized', { status: 403 });
     }
 
     const category = await prismadb.category.create({
@@ -51,7 +52,7 @@ export async function POST(
   } catch (error) {
     console.error(`[CATEGORY_POST] ${error}`);
 
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }
 
@@ -61,7 +62,7 @@ export async function GET(
 ) {
   try {
     if (!params.storeId) {
-      return new NextResponse("Store ID is Required", { status: 400 });
+      return new NextResponse('Store ID is Required', { status: 400 });
     }
 
     const categories = await prismadb.category.findMany({
@@ -74,6 +75,6 @@ export async function GET(
   } catch (error) {
     console.error(`[CATEGORIES_GET] ${error}`);
 
-    return new NextResponse("Internal Error", { status: 500 });
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }

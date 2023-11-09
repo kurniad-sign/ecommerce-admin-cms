@@ -1,15 +1,18 @@
-"use client";
+'use client';
 
-import { Billboard, Category } from "@prisma/client";
-import { Trash } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
-import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { useOrigin } from '@/hooks/use-origin';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Billboard, Category } from '@prisma/client';
+import axios from 'axios';
+import { Trash } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button";
+import { AlertModal } from '@/components/modal/alert-modal';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -17,20 +20,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertModal } from "@/components/modal/alert-modal";
-import { useOrigin } from "@/hooks/use-origin";
+} from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
 
 interface CategoryFormProps {
   initialData: Category | null;
@@ -58,15 +58,15 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const form = useForm<CategoryFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      billboardId: "",
-      name: "",
+      billboardId: '',
+      name: '',
     },
   });
 
-  const title = initialData ? "Edit Category" : "Create Category";
-  const description = initialData ? "Edit a category" : "Add a new category";
-  const toastMessage = initialData ? "Category updated" : "Category created";
-  const action = initialData ? "Save Changes" : "Create";
+  const title = initialData ? 'Edit Category' : 'Create Category';
+  const description = initialData ? 'Edit a category' : 'Add a new category';
+  const toastMessage = initialData ? 'Category updated' : 'Category created';
+  const action = initialData ? 'Save Changes' : 'Create';
 
   const onSubmit = async (data: CategoryFormValue) => {
     try {
@@ -84,7 +84,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       toast.success(toastMessage);
     } catch (error) {
       console.error(error);
-      toast.error("Something when wrong");
+      toast.error('Something when wrong');
     } finally {
       setLoading(false);
     }
@@ -98,11 +98,11 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       );
       router.refresh();
       router.push(`/${params.storeId}/categories`);
-      toast.success("Category Deleted");
+      toast.success('Category Deleted');
     } catch (error) {
       console.error(error);
       toast.error(
-        "Make sure you removed all products using this category first"
+        'Make sure you removed all products using this category first'
       );
     } finally {
       setLoading(false);

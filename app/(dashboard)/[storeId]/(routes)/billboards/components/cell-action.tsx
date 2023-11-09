@@ -1,18 +1,20 @@
+import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import axios from 'axios';
+import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
+import toast from 'react-hot-toast';
+
+import { AlertModal } from '@/components/modal/alert-modal';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { BillboardColumn } from "./columns";
-import { Button } from "@/components/ui/button";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import toast from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
-import axios from "axios";
-import { useState } from "react";
-import { AlertModal } from "@/components/modal/alert-modal";
+} from '@/components/ui/dropdown-menu';
+
+import { BillboardColumn } from './columns';
 
 interface CellActionProps {
   data: BillboardColumn;
@@ -27,7 +29,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to the clipboard.");
+    toast.success('Billboard ID copied to the clipboard.');
   };
 
   const onDelete = async () => {
@@ -35,11 +37,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
       router.refresh();
-      toast.success("Billboard Deleted");
+      toast.success('Billboard Deleted');
     } catch (error) {
       console.error(error);
       toast.error(
-        "Make sure you removed all categories using this billboard first"
+        'Make sure you removed all categories using this billboard first'
       );
     } finally {
       setLoading(false);

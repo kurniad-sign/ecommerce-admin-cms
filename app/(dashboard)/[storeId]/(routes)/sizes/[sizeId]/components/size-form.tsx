@@ -1,15 +1,17 @@
-"use client";
+'use client';
 
-import { Size } from "@prisma/client";
-import { Trash } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
-import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Size } from '@prisma/client';
+import axios from 'axios';
+import { Trash } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { z } from 'zod';
 
-import { Button } from "@/components/ui/button";
+import { AlertModal } from '@/components/modal/alert-modal';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -17,12 +19,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Heading } from "@/components/ui/heading";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertModal } from "@/components/modal/alert-modal";
+} from '@/components/ui/form';
+import { Heading } from '@/components/ui/heading';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 
 interface SizeFormProps {
   initialData: Size | null;
@@ -45,15 +45,15 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
   const form = useForm<SizeFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      name: "",
-      value: "",
+      name: '',
+      value: '',
     },
   });
 
-  const title = initialData ? "Edit Size" : "Create Size";
-  const description = initialData ? "Edit a size" : "Add a new size";
-  const toastMessage = initialData ? "Size updated" : "Size created";
-  const action = initialData ? "Save Changes" : "Create";
+  const title = initialData ? 'Edit Size' : 'Create Size';
+  const description = initialData ? 'Edit a size' : 'Add a new size';
+  const toastMessage = initialData ? 'Size updated' : 'Size created';
+  const action = initialData ? 'Save Changes' : 'Create';
 
   const onSubmit = async (data: SizeFormValue) => {
     try {
@@ -71,7 +71,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       toast.success(toastMessage);
     } catch (error) {
       console.error(error);
-      toast.error("Something when wrong");
+      toast.error('Something when wrong');
     } finally {
       setLoading(false);
     }
@@ -83,10 +83,10 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       await axios.delete(`/api/${params.storeId}/sizes/${params.sizeId}`);
       router.refresh();
       router.push(`/${params.storeId}/sizes`);
-      toast.success("Size Deleted");
+      toast.success('Size Deleted');
     } catch (error) {
       console.error(error);
-      toast.error("Make sure you removed all products using this size first");
+      toast.error('Make sure you removed all products using this size first');
     } finally {
       setLoading(false);
       setOpen(false);

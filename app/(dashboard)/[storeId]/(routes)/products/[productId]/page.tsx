@@ -1,5 +1,6 @@
-import prismadb from "@/lib/db";
-import { ProductForm } from "./components/product-form";
+import prismadb from '@/lib/db';
+
+import { ProductForm } from './components/product-form';
 
 export default async function ProductPage({
   params,

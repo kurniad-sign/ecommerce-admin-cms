@@ -1,7 +1,9 @@
-import { format } from "date-fns";
-import prismadb from "@/lib/db";
-import { CategoryClient } from "./components/client";
-import { CategoryColumn } from "./components/columns";
+import { format } from 'date-fns';
+
+import prismadb from '@/lib/db';
+
+import { CategoryClient } from './components/client';
+import { CategoryColumn } from './components/columns';
 
 export default async function CategoriesPage({
   params,
@@ -16,7 +18,7 @@ export default async function CategoriesPage({
       billboard: true,
     },
     orderBy: {
-      createdAt: "desc",
+      createdAt: 'desc',
     },
   });
 
@@ -24,7 +26,7 @@ export default async function CategoriesPage({
     id: item.id,
     name: item.name,
     billboardLabel: item.billboard.label,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
   }));
 
   return (
