@@ -1,14 +1,14 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ModalProvider } from '@/providers/modal-providers';
-import { ThemeProvider } from '@/providers/theme-provider';
-import { ToastProvider } from '@/providers/toast-providers';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 
-const inter = Inter({ subsets: ['latin'] });
+import { ModalProvider } from '@/components/providers/modal-providers';
+import { ThemeProvider } from '@/components/providers/theme-provider';
+import { ToastProvider } from '@/components/providers/toast-providers';
+import { generalSans, inter } from '@/lib/fonts';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Admin Dashboard',
@@ -22,8 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider appearance={{ baseTheme: dark }}>
-      <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={cn(generalSans.variable, inter.variable)}
+      >
+        <body>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ModalProvider />
             <ToastProvider />
