@@ -37,7 +37,7 @@ export default async function DashboardLayout({
         <aside className="col-span-3 xl:col-span-2 py-8">
           <Sidebar />
         </aside>
-        <section className="col-span-9 xl:col-span-10">
+        <section className="col-span-9 xl:col-span-10 flex flex-col">
           {children}
           <div className="p-8 pb-0 pr-0">
             <Footer />
