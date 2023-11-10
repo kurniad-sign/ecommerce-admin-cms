@@ -14,7 +14,7 @@ export function Navbar() {
   return (
     <header className="border-b relative h-16">
       <nav className="h-full flex items-center container mx-auto">
-        <div className="h-full flex items-center leading-none">
+        <div className="flex items-center leading-none">
           <Link href="/">
             {theme === 'light' ? <LogoLight /> : <LogoDark />}
           </Link>

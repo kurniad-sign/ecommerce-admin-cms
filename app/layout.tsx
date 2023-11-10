@@ -27,7 +27,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={cn(generalSans.variable, inter.variable)}
       >
-        <body>
+        <body className="min-h-screen w-full flex flex-col overflow-x-hidden">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ModalProvider />
             <ToastProvider />
