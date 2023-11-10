@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
+import { Next13NProgress } from 'nextjs13-progress';
 
 import { ModalProvider } from '@/components/providers/modal-providers';
 import { ThemeProvider } from '@/components/providers/theme-provider';
@@ -30,6 +31,7 @@ export default function RootLayout({
         <body className="min-h-screen w-full flex flex-col overflow-x-hidden">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ModalProvider />
+            <Next13NProgress color="#71717a" />
             <ToastProvider />
             {children}
           </ThemeProvider>

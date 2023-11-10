@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { Store } from '@prisma/client';
 import { format } from 'date-fns';
+import { Link } from 'nextjs13-progress';
 
 import {
   Card,
