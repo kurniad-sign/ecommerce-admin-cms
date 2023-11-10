@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { UserButton } from '@clerk/nextjs';
 import { useTheme } from 'next-themes';
+import { Link } from 'nextjs13-progress';
 
 import { LogoDark } from '../icon/logo-dark';
 import { LogoLight } from '../icon/logo-white';

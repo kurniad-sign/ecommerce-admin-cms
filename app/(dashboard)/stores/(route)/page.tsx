@@ -1,5 +1,8 @@
+import { Suspense } from 'react';
+
 import { CreateStore } from '@/components/shared/stores/create-store';
 import { StoreLists } from '@/components/shared/stores/store-lists';
+import { StoreSkeleton } from '@/components/skeletons/store-skeleton';
 
 export default function StoresPage() {
   return (
@@ -11,7 +14,9 @@ export default function StoresPage() {
           </h1>
           <CreateStore />
         </div>
-        <StoreLists />
+        <Suspense fallback={<StoreSkeleton />}>
+          <StoreLists />
+        </Suspense>
       </div>
     </main>
   );
