@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs';
 
-import prismadb from '@/lib/db';
+import { getStores } from '@/lib/api/stores';
 
 export const metadata: Metadata = {
   title: 'Crown - Create your first store',
@@ -19,13 +19,9 @@ export default async function SetupLayout({
     redirect('/sign-in');
   }
 
-  const store = await prismadb.store.findFirst({
-    where: {
-      userId,
-    },
-  });
+  const stores = await getStores();
 
-  if (store) {
+  if (stores.length) {
     redirect(`/stores`);
   }
 

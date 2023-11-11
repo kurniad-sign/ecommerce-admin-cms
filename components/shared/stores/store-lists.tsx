@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { Store } from '@prisma/client';
 import { format } from 'date-fns';
 import { Link } from 'nextjs13-progress';
@@ -12,6 +13,8 @@ import { getStores } from '@/lib/api/stores';
 
 export async function StoreLists() {
   const stores = await getStores();
+
+  if (!stores.length) redirect('/');
 
   return (
     <ul className="grid grid-cols-6 lg:grid-cols-12 gap-10 mt-8">
