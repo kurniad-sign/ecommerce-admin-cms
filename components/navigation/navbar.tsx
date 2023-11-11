@@ -1,5 +1,6 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { useStore } from '@/hooks/api/use-store';
 import { UserButton } from '@clerk/nextjs';
 import { useTheme } from 'next-themes';
@@ -14,6 +15,7 @@ import { Skeleton } from '../ui/skeleton';
 export function Navbar() {
   const { theme } = useTheme();
   const { stores, isLoading } = useStore();
+  const params = useParams();
 
   return (
     <header className="border-b relative h-16">
@@ -24,7 +26,7 @@ export function Navbar() {
           </Link>
         </div>
 
-        {isLoading ? (
+        {!params.storeId ? null : isLoading ? (
           <Skeleton className="w-[200px] h-8 rounded-md" />
         ) : (
           <StoreSwitcher items={stores} />

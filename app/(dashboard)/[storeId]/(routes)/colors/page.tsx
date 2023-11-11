@@ -27,10 +27,8 @@ export default async function ColorsPage({
   }));
 
   return (
-    <div className="flex-col">
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <SizesClient data={formattedColor} />
-      </div>
+    <div className="flex-1 space-y-4 p-8 pt-6">
+      <SizesClient data={formattedColor} />
     </div>
   );
 }
