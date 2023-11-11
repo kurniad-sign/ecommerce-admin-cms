@@ -4,7 +4,7 @@ import { auth } from '@clerk/nextjs';
 import { Footer } from '@/components/navigation/footer';
 import { Navbar } from '@/components/navigation/navbar';
 import { Sidebar } from '@/components/navigation/sidebar';
-import prismadb from '@/lib/db';
+import { getStoreById } from '@/lib/api/stores';
 
 export default async function DashboardLayout({
   children,
@@ -19,12 +19,7 @@ export default async function DashboardLayout({
     redirect('/sign-in');
   }
 
-  const store = await prismadb.store.findFirst({
-    where: {
-      id: params.storeId,
-      userId,
-    },
-  });
+  const store = await getStoreById(params.storeId);
 
   if (!store) {
     redirect('/');

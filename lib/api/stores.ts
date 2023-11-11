@@ -18,3 +18,20 @@ export async function getStores() {
     throw new Error('Error when fetch Stores');
   }
 }
+
+export async function getStoreById(id: string) {
+  const { userId } = auth();
+
+  try {
+    const store = await prismadb.store.findFirst({
+      where: {
+        id,
+        userId: userId as string,
+      },
+    });
+    return store;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error when fetch Store');
+  }
+}
