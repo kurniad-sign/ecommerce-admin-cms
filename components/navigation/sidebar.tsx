@@ -105,7 +105,7 @@ export function Sidebar() {
                   <Link
                     href={r.href}
                     className={cn(
-                      'flex items-center rounded-lg px-4 py-2 text-sm text-zinc-500 hover:text-zinc-950 dark:text-zinc-500 dark:hover:text-white transition-colors',
+                      'flex items-center rounded-lg px-4 py-2 text-sm text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white transition-colors',
                       r.active
                         ? 'bg-zinc-100 text-zinc-950 dark:bg-zinc-800 dark:text-white'
                         : ''
