@@ -9,7 +9,7 @@ export default function StoresPage() {
     <main className="flex-auto">
       <div className="lg:max-w-[1024px] px-8 lg:px-0 mx-auto py-16">
         <div className="flex items-end justify-between">
-          <h1 className="text-4xl font-general-sans font-medium">
+          <h1 className="text-4xl font-general-sans font-semibold tracking-[0.3px]">
             Your stores
           </h1>
           <CreateStore />

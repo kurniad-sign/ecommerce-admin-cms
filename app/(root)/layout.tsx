@@ -2,13 +2,15 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs';
 
+import { Footer } from '@/components/navigation/footer';
+import { Navbar } from '@/components/navigation/navbar';
 import { getStores } from '@/lib/api/stores';
 
 export const metadata: Metadata = {
-  title: 'Crown - Create your first store',
+  title: 'Create first store - Crown',
 };
 
-export default async function SetupLayout({
+export default async function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -25,5 +27,11 @@ export default async function SetupLayout({
     redirect(`/stores`);
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  );
 }
