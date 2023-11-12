@@ -38,7 +38,10 @@ function StoreList({ store }: { store: Store }) {
             </div>
           </CardHeader>
           <CardContent className="flex-auto p-6">
-            <div className="text-xl font-medium">{store.name}</div>
+            <h4 className="text-xl font-medium mb-1">{store.name}</h4>
+            <span className="text-xs px-2 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-md">
+              {store.store_id}
+            </span>
           </CardContent>
           <CardFooter className="h-12 pb-0 border-t">
             <div className="text-xs text-zinc-700 dark:text-zinc-400">
