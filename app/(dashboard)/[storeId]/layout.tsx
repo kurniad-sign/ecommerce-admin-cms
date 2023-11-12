@@ -34,7 +34,7 @@ export default async function DashboardLayout({
         </aside>
         <section className="col-span-9 xl:col-span-10 flex flex-col">
           {children}
-          <div className="p-8 pb-0 pr-0">
+          <div className="px-8">
             <Footer />
           </div>
         </section>
