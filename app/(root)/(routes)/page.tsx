@@ -1,17 +1,9 @@
-'use client';
+import { FirstStoreForm } from '@/components/shared/stores/first-store-form';
 
-import { useEffect } from 'react';
-import { useStoreModal } from '@/hooks/use-store-modal';
-
-const SetupPage = () => {
-  const isOpen = useStoreModal((state) => state.isOpen);
-  const onOpen = useStoreModal((state) => state.onOpen);
-
-  useEffect(() => {
-    if (!isOpen) onOpen();
-  }, [isOpen, onOpen]);
-
-  return null;
-};
-
-export default SetupPage;
+export default function HomePage() {
+  return (
+    <main className="flex-auto container mx-auto flex items-center justify-center">
+      <FirstStoreForm />
+    </main>
+  );
+}
