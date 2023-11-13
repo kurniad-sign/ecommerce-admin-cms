@@ -1,34 +1,28 @@
-import { format } from 'date-fns';
+import { Suspense } from 'react';
 
-import prismadb from '@/lib/db';
+import { TableSkeleton } from '@/components/skeletons/table-skeleton';
+import { ApiList } from '@/components/ui/api-list';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
 
-import { SizesClient } from './components/client';
-import { ColorsColumn } from './components/columns';
+import { ColorData } from './components/color-data';
+import { ColorHeading } from './components/color-heading';
 
 export default async function ColorsPage({
   params,
 }: {
   params: { storeId: string };
 }) {
-  const colors = await prismadb.color.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-
-  const formattedColor: ColorsColumn[] = colors.map((item) => ({
-    id: item.id,
-    name: item.name,
-    value: item.value,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-  }));
-
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <SizesClient data={formattedColor} />
+    <div className="flex-1 space-y-4 p-8 pt-6 pr-0">
+      <ColorHeading />
+      <Suspense fallback={<TableSkeleton />}>
+        <ColorData storeId={params.storeId} />
+      </Suspense>
+
+      <Heading title="API" description="API calls for Colors" />
+      <Separator />
+      <ApiList entityName="colors" entityIdName="colorsId" />
     </div>
   );
 }
