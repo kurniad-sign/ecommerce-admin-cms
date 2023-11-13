@@ -1,34 +1,27 @@
-import { format } from 'date-fns';
+import { Suspense } from 'react';
 
-import prismadb from '@/lib/db';
+import { TableSkeleton } from '@/components/skeletons/table-skeleton';
+import { ApiList } from '@/components/ui/api-list';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
 
-import { SizesClient } from './components/client';
-import { SizeColumn } from './components/columns';
+import { SizeData } from './components/size-data';
+import { SizeHeading } from './components/size-heading';
 
 export default async function SizesPage({
   params,
 }: {
   params: { storeId: string };
 }) {
-  const sizes = await prismadb.size.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-
-  const formattedSize: SizeColumn[] = sizes.map((item) => ({
-    id: item.id,
-    name: item.name,
-    value: item.value,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-  }));
-
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <SizesClient data={formattedSize} />
+    <div className="flex-1 space-y-4 p-8 pt-6 pr-0">
+      <SizeHeading />
+      <Suspense fallback={<TableSkeleton />}>
+        <SizeData storeId={params.storeId} />
+      </Suspense>
+      <Heading title="API" description="API calls for Sizes" />
+      <Separator />
+      <ApiList entityName="sizes" entityIdName="sizeId" />
     </div>
   );
 }
