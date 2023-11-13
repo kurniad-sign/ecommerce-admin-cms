@@ -87,8 +87,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           <div className="flex items-center justify-between">
             <Heading title={actions.title} description={actions.description} />
             <Button disabled={loading} className="ml-auto" type="submit">
-              {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              <Save className="w-4 h-4 mr-2" />
+              {loading ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Save className="w-4 h-4 mr-2" />
+              )}
               {actions.buttonAction}
             </Button>
           </div>
