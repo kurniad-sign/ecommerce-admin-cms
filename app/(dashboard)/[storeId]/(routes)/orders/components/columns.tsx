@@ -10,6 +10,7 @@ export type OrderColumn = {
   totalPrice: string;
   products: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<OrderColumn>[] = [
