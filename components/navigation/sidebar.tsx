@@ -37,19 +37,25 @@ export function Sidebar() {
         {
           href: `/${params.storeId}/categories`,
           label: 'Categories',
-          active: pathname === `/${params.storeId}/categories`,
+          active:
+            pathname === `/${params.storeId}/categories` ||
+            pathname === `/${params.storeId}/categories/${params.categoryId}`,
           icon: <Shapes className="w-4 h-4 mr-2" />,
         },
         {
           href: `/${params.storeId}/sizes`,
           label: 'Sizes',
-          active: pathname === `/${params.storeId}/sizes`,
+          active:
+            pathname === `/${params.storeId}/sizes` ||
+            pathname === `/${params.storeId}/sizes/${params.sizeId}`,
           icon: <Expand className="w-4 h-4 mr-2" />,
         },
         {
           href: `/${params.storeId}/colors`,
           label: 'Colors',
-          active: pathname === `/${params.storeId}/colors`,
+          active:
+            pathname === `/${params.storeId}/colors` ||
+            pathname === `/${params.storeId}/colors/${params.colorId}`,
           icon: <Palette className="w-4 h-4 mr-2" />,
         },
       ],
@@ -60,7 +66,9 @@ export function Sidebar() {
         {
           href: `/${params.storeId}/products`,
           label: 'Products',
-          active: pathname === `/${params.storeId}/products`,
+          active:
+            pathname === `/${params.storeId}/products` ||
+            pathname === `/${params.storeId}/products/${params.productId}`,
           icon: <ShoppingBasket className="w-4 h-4 mr-2" />,
         },
         {
@@ -72,7 +80,9 @@ export function Sidebar() {
         {
           href: `/${params.storeId}/billboards`,
           label: 'Billboards',
-          active: pathname === `/${params.storeId}/billboards`,
+          active:
+            pathname === `/${params.storeId}/billboards` ||
+            pathname === `/${params.storeId}/billboards/${params.billboardId}`,
           icon: <Presentation className="w-4 h-4 mr-2" />,
         },
       ],
