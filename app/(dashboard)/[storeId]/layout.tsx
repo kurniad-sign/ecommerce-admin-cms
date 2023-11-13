@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs';
 
@@ -5,6 +6,10 @@ import { Footer } from '@/components/navigation/footer';
 import { Navbar } from '@/components/navigation/navbar';
 import { Sidebar } from '@/components/navigation/sidebar';
 import { getStoreById } from '@/lib/api/stores';
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Crown',
+};
 
 export default async function DashboardLayout({
   children,
