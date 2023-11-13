@@ -3,19 +3,11 @@
 import { useParams, useRouter } from 'next/navigation';
 import { Plus } from 'lucide-react';
 
-import { ApiList } from '@/components/ui/api-list';
 import { Button } from '@/components/ui/button';
-import { DataTable } from '@/components/ui/data-table';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
-import { columns, ProductColumn } from './columns';
-
-interface ProductClientProps {
-  data: ProductColumn[];
-}
-
-export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
+export function ProductHeading() {
   const router = useRouter();
   const params = useParams();
 
@@ -23,7 +15,7 @@ export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Products (${data.length})`}
+          title={`Products`}
           description="Manage products for your store"
         />
         <Button onClick={() => router.push(`/${params.storeId}/products/new`)}>
@@ -32,10 +24,6 @@ export const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={data} searchKey="name" />
-      <Heading title="API" description="API calls for products" />
-      <Separator />
-      <ApiList entityName="products" entityIdName="productId" />
     </>
   );
-};
+}

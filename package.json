@@ -1,6 +1,6 @@
 {
   "name": "ecommerce-admin",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "private": true,
   "scripts": {
     "format": "pnpm dlx prettier --write . --ignore-path .gitgignore",
