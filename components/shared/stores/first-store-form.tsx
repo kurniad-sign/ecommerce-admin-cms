@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { createStore } from '@/actions/stores';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Info, Loader2, Plus, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -31,6 +30,13 @@ import {
   formStoreSchema,
   FormStoreSchemaType,
 } from '@/lib/form-schema/store-schema';
+
+async function createStore(url: string, { arg }: { arg: FormStoreSchemaType }) {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(arg),
+  }).then((res) => res.json());
+}
 
 export function FirstStoreForm() {
   const [open, setOpen] = useState(false);
