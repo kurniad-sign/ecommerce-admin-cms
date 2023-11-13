@@ -16,7 +16,7 @@ export default async function DashboardPage({ params }: DashboardPageProps) {
     <div className="flex-1 space-y-4 p-8 pt-6 pr-0">
       <Heading title="Dashboard" description="overview of your store" />
       <Separator />
-      <div className="space-y-4 pt-8">
+      <div className="space-y-4 pt-4">
         <Suspense fallback={<CardSummarySkeleton />}>
           <CardSummaryProduct storeId={params.storeId} />
         </Suspense>
