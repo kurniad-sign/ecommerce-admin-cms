@@ -38,7 +38,7 @@ export function Navbar() {
         <div className="ml-auto flex items-center ">
           <ThemeToggle />
           <div>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl="/sign-in" />
           </div>
         </div>
       </nav>

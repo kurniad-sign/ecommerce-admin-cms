@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { Info, Loader2, Plus, X } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import useSWRMutation from 'swr/mutation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -31,16 +31,9 @@ import {
   FormStoreSchemaType,
 } from '@/lib/form-schema/store-schema';
 
-async function createStore(url: string, { arg }: { arg: FormStoreSchemaType }) {
-  return fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(arg),
-  }).then((res) => res.json());
-}
-
 export function FirstStoreForm() {
   const [open, setOpen] = useState(false);
-  const { trigger, isMutating } = useSWRMutation('/api/stores', createStore);
+  const [loading, setLoading] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -51,14 +44,15 @@ export function FirstStoreForm() {
 
   async function handleSubmitStore(values: FormStoreSchemaType) {
     try {
-      await trigger(values);
+      setLoading(true);
+      const response = await axios.post('/api/stores', values);
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
       console.error(error);
       toast.error('Something wrong when creating store');
     } finally {
-      toast.success('Success creating store');
-      form.reset();
-      window.location.assign(`/stores`);
+      setLoading(false);
+      toast.success('Store created');
     }
   }
 
@@ -86,7 +80,7 @@ export function FirstStoreForm() {
                       <FormControl>
                         <Input
                           placeholder="Store name"
-                          disabled={isMutating}
+                          disabled={loading}
                           {...field}
                         />
                       </FormControl>
@@ -110,7 +104,7 @@ export function FirstStoreForm() {
                         className="absolute top-5 right-5 cursor-pointer rounded-full"
                         size={'icon'}
                         variant={'outline'}
-                        disabled={isMutating}
+                        disabled={loading}
                         onClick={() => {
                           handleClose();
                           form.resetField('store_id');
@@ -129,7 +123,7 @@ export function FirstStoreForm() {
                               <FormControl>
                                 <Input
                                   placeholder="Your store id"
-                                  disabled={isMutating}
+                                  disabled={loading}
                                   {...field}
                                 />
                               </FormControl>
@@ -151,7 +145,7 @@ export function FirstStoreForm() {
                     variant={'outline'}
                     className="text-xs"
                     onClick={handleOpen}
-                    disabled={isMutating}
+                    disabled={loading}
                   >
                     <Plus className="mr-2 w-3 h-3" />
                     Store ID
@@ -161,8 +155,8 @@ export function FirstStoreForm() {
             </div>
           </CardContent>
           <CardFooter className="flex justify-end gap-x-4">
-            <Button type="submit" disabled={isMutating}>
-              {isMutating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{' '}
+            <Button type="submit" disabled={loading}>
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{' '}
               Create store
             </Button>
           </CardFooter>
