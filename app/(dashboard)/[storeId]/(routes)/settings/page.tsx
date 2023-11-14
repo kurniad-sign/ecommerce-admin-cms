@@ -1,8 +1,11 @@
-import { redirect } from 'next/navigation';
-import { auth } from '@clerk/nextjs';
+import { Store } from '@prisma/client';
 
-import prismadb from '@/lib/db';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
+import { getStoreById } from '@/lib/api/stores';
 
+import { DeleteStoreSettings } from './components/delete-store-setting';
+import { SettingsApi } from './components/settings-api';
 import { SettingsForm } from './components/settings-form';
 
 interface SettingsPageProps {
@@ -12,22 +15,21 @@ interface SettingsPageProps {
 }
 
 export default async function SettingsPage({ params }: SettingsPageProps) {
-  const { userId } = auth();
-
-  if (!userId) redirect('/sign-in');
-
-  const store = await prismadb.store.findFirst({
-    where: {
-      id: params.storeId,
-      userId,
-    },
-  });
-
-  if (!store) redirect('/');
+  const store = (await getStoreById(params.storeId)) as Store;
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <SettingsForm initialData={store} />
+    <div className="flex-1 p-8 pt-6">
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <Heading title="Settings" description="Manage store preferences" />
+        </div>
+        <Separator />
+      </div>
+      <div className="space-y-8 pt-8">
+        <SettingsForm initialData={store} />
+        <SettingsApi />
+        <DeleteStoreSettings store={store} />
+      </div>
     </div>
   );
 }

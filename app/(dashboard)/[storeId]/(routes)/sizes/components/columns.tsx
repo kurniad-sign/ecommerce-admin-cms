@@ -9,6 +9,7 @@ export type SizeColumn = {
   name: string;
   value: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<SizeColumn>[] = [
@@ -22,7 +23,11 @@ export const columns: ColumnDef<SizeColumn>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: 'Date',
+    header: 'Created Date',
+  },
+  {
+    accessorKey: 'updatedAt',
+    header: 'Updated Date',
   },
   {
     id: 'actions',

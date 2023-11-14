@@ -9,6 +9,7 @@ export type ColorsColumn = {
   name: string;
   value: string;
   createdAt: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<ColorsColumn>[] = [
@@ -31,7 +32,11 @@ export const columns: ColumnDef<ColorsColumn>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: 'Date',
+    header: 'Created Date',
+  },
+  {
+    accessorKey: 'updatedAt',
+    header: 'Updated Date',
   },
   {
     id: 'actions',

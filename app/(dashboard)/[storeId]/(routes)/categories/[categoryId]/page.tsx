@@ -1,4 +1,5 @@
-import prismadb from '@/lib/db';
+import { getBillboards } from '@/lib/api/billboards';
+import { getCategoryById } from '@/lib/api/categories';
 
 import { CategoryForm } from './components/category-form';
 
@@ -7,23 +8,12 @@ export default async function BillboardPage({
 }: {
   params: { categoryId: string; storeId: string };
 }) {
-  const category = await prismadb.category.findUnique({
-    where: {
-      id: params.categoryId,
-    },
-  });
-
-  const billboards = await prismadb.billboard.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-  });
+  const category = await getCategoryById(params.categoryId);
+  const billboards = await getBillboards(params.storeId);
 
   return (
-    <div className="flex-col">
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <CategoryForm initialData={category} billboards={billboards} />
-      </div>
+    <div className="flex-1 p-8 pt-6 pr-0">
+      <CategoryForm initialData={category} billboards={billboards} />
     </div>
   );
 }

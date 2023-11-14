@@ -1,37 +1,27 @@
-import { format } from 'date-fns';
+import { Suspense } from 'react';
 
-import prismadb from '@/lib/db';
+import { TableSkeleton } from '@/components/skeletons/table-skeleton';
+import { ApiList } from '@/components/ui/api-list';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
 
-import { CategoryClient } from './components/client';
-import { CategoryColumn } from './components/columns';
+import { CategoryData } from './components/categoriy-data';
+import { CategoryHeading } from './components/category-heading';
 
 export default async function CategoriesPage({
   params,
 }: {
   params: { storeId: string };
 }) {
-  const categories = await prismadb.category.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    include: {
-      billboard: true,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-
-  const formattedCategories: CategoryColumn[] = categories.map((item) => ({
-    id: item.id,
-    name: item.name,
-    billboardLabel: item.billboard.label,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-  }));
-
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <CategoryClient data={formattedCategories} />
+    <div className="flex-1 space-y-4 p-8 pt-6 pr-0">
+      <CategoryHeading />
+      <Suspense fallback={<TableSkeleton />}>
+        <CategoryData storeId={params.storeId} />
+      </Suspense>
+      <Heading title="API" description="API calls for categories" />
+      <Separator />
+      <ApiList entityName="categories" entityIdName="categoryId" />
     </div>
   );
 }

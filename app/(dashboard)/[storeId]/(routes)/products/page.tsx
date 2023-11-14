@@ -1,45 +1,27 @@
-import { format } from 'date-fns';
+import { Suspense } from 'react';
 
-import prismadb from '@/lib/db';
-import { priceFormatter } from '@/lib/utils';
+import { TableSkeleton } from '@/components/skeletons/table-skeleton';
+import { ApiList } from '@/components/ui/api-list';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
 
-import { ProductClient } from './components/client';
-import { ProductColumn } from './components/columns';
+import { ProductData } from './components/product-data';
+import { ProductHeading } from './components/product-heading';
 
 export default async function ProductsPage({
   params,
 }: {
   params: { storeId: string };
 }) {
-  const products = await prismadb.product.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      category: true,
-      size: true,
-      color: true,
-    },
-  });
-
-  const formattedProducts: ProductColumn[] = products.map((item) => ({
-    id: item.id,
-    name: item.name,
-    isFeatured: item.isFeatured,
-    isArchived: item.isArchived,
-    price: priceFormatter.format(item.price.toNumber()),
-    category: item.category.name,
-    size: item.size.name,
-    color: item.color.value,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-  }));
-
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <ProductClient data={formattedProducts} />
+    <div className="flex-1 space-y-4 p-8 pt-6 pr-0">
+      <ProductHeading />
+      <Suspense fallback={<TableSkeleton />}>
+        <ProductData storeId={params.storeId} />
+      </Suspense>
+      <Heading title="API" description="API calls for products" />
+      <Separator />
+      <ApiList entityName="products" entityIdName="productId" />
     </div>
   );
 }

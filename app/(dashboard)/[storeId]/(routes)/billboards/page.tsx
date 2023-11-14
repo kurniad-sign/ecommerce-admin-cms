@@ -1,33 +1,27 @@
-import { format } from 'date-fns';
+import { Suspense } from 'react';
 
-import prismadb from '@/lib/db';
+import { TableSkeleton } from '@/components/skeletons/table-skeleton';
+import { ApiList } from '@/components/ui/api-list';
+import { Heading } from '@/components/ui/heading';
+import { Separator } from '@/components/ui/separator';
 
-import { BillboardClient } from './components/client';
-import { BillboardColumn } from './components/columns';
+import { BillboardData } from './components/billboard-data';
+import { BillboardHeading } from './components/billboard-heading';
 
 export default async function BillboardsPage({
   params,
 }: {
   params: { storeId: string };
 }) {
-  const billboards = await prismadb.billboard.findMany({
-    where: {
-      storeId: params.storeId,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
-
-  const formattedBillboards: BillboardColumn[] = billboards.map((item) => ({
-    id: item.id,
-    label: item.label,
-    createdAt: format(item.createdAt, 'MMMM do, yyyy'),
-  }));
-
   return (
     <div className="flex-1 space-y-4 p-8 pt-6 pr-0">
-      <BillboardClient data={formattedBillboards} />
+      <BillboardHeading />
+      <Suspense fallback={<TableSkeleton />}>
+        <BillboardData storeId={params.storeId} />
+      </Suspense>
+      <Heading title="API" description="API calls for billboard" />
+      <Separator />
+      <ApiList entityName="billboards" entityIdName="billboardId" />
     </div>
   );
 }

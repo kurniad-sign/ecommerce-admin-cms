@@ -1,10 +1,15 @@
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { auth } from '@clerk/nextjs';
+import { currentUser } from '@clerk/nextjs';
 
 import { Footer } from '@/components/navigation/footer';
 import { Navbar } from '@/components/navigation/navbar';
 import { Sidebar } from '@/components/navigation/sidebar';
 import { getStoreById } from '@/lib/api/stores';
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Crown',
+};
 
 export default async function DashboardLayout({
   children,
@@ -13,9 +18,9 @@ export default async function DashboardLayout({
   children: React.ReactNode;
   params: { storeId: string };
 }) {
-  const { userId } = auth();
+  const user = await currentUser();
 
-  if (!userId) {
+  if (!user) {
     redirect('/sign-in');
   }
 
@@ -34,7 +39,7 @@ export default async function DashboardLayout({
         </aside>
         <section className="col-span-9 xl:col-span-10 flex flex-col">
           {children}
-          <div className="p-8 pb-0 pr-0">
+          <div className="pl-8">
             <Footer />
           </div>
         </section>

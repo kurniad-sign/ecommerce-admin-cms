@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import { Store } from '@prisma/client';
 import { format } from 'date-fns';
 import { Link } from 'nextjs13-progress';
@@ -13,8 +12,6 @@ import { getStores } from '@/lib/api/stores';
 
 export async function StoreLists() {
   const stores = await getStores();
-
-  if (!stores.length) redirect('/');
 
   return (
     <ul className="grid grid-cols-6 lg:grid-cols-12 gap-10 mt-8">
@@ -38,7 +35,10 @@ function StoreList({ store }: { store: Store }) {
             </div>
           </CardHeader>
           <CardContent className="flex-auto p-6">
-            <div className="text-xl font-medium">{store.name}</div>
+            <h4 className="text-xl font-medium mb-1">{store.name}</h4>
+            <span className="text-xs px-2 py-1 bg-zinc-200 dark:bg-zinc-800 rounded-md">
+              {store.store_id}
+            </span>
           </CardContent>
           <CardFooter className="h-12 pb-0 border-t">
             <div className="text-xs text-zinc-700 dark:text-zinc-400">

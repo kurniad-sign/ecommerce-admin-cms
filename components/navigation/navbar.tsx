@@ -3,6 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useStore } from '@/hooks/api/use-store';
 import { UserButton } from '@clerk/nextjs';
+import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Link } from 'nextjs13-progress';
 
@@ -10,7 +11,6 @@ import { LogoDark } from '../icon/logo-dark';
 import { LogoLight } from '../icon/logo-white';
 import StoreSwitcher from '../store-switcher';
 import { ThemeToggle } from '../theme-toggle';
-import { Skeleton } from '../ui/skeleton';
 
 export function Navbar() {
   const { theme } = useTheme();
@@ -27,7 +27,10 @@ export function Navbar() {
         </div>
 
         {!params.storeId ? null : isLoading ? (
-          <Skeleton className="w-[200px] h-8 rounded-md" />
+          <div className="border rounded-md w-[200px] h-9 flex items-center justify-between px-3">
+            <span className="text-sm">Loading...</span>
+            <Loader2 className="w-[14px] h-[14px] animate-spin" />
+          </div>
         ) : (
           <StoreSwitcher items={stores} />
         )}
@@ -35,7 +38,7 @@ export function Navbar() {
         <div className="ml-auto flex items-center ">
           <ThemeToggle />
           <div>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton afterSignOutUrl="/sign-in" />
           </div>
         </div>
       </nav>

@@ -12,6 +12,8 @@ interface ImageUploadProps {
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
+  width?: number;
+  height?: number;
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -19,6 +21,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
   onRemove,
   value,
   disabled,
+  height,
+  width,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -34,11 +38,15 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <div>
-      <div className="mb-4 flex items-center gap-4">
+      <div className="flex items-center gap-4">
         {value.map((url) => (
           <div
             key={url}
-            className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
+            className="relative w-[200px] h-[200px] rounded-md overflow-hidden mb-4"
+            style={{
+              width,
+              height,
+            }}
           >
             <div className="z-10 absolute top-2 right-2">
               <Button
@@ -46,8 +54,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                 onClick={() => onRemove(url)}
                 variant="destructive"
                 size="icon"
+                className="h-8 w-8 rounded-full"
               >
-                <Trash className="h-4 w-4" />
+                <Trash className="h-3 w-3" />
               </Button>
             </div>
             <Image fill className="object-cover" alt="image" src={url} />

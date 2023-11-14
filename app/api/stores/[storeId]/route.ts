@@ -14,7 +14,7 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const { name } = body;
+    const { name, store_id, store_logo_url } = body;
 
     if (!name) {
       return new NextResponse('Name is Required', { status: 400 });
@@ -31,6 +31,8 @@ export async function PATCH(
       },
       data: {
         name,
+        store_id,
+        store_logo_url,
       },
     });
 

@@ -28,8 +28,8 @@ export const AlertModal: React.FC<AlertModalProps> = ({
 
   return (
     <Modal
-      title="Are you sure"
-      description="This action cannot be undone"
+      title="Confirm Delete"
+      description="Are you sure you want to delete this item ?"
       isOpen={isOpen}
       onClose={onClose}
     >
