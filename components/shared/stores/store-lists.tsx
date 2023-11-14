@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Store } from '@prisma/client';
 import { format } from 'date-fns';
 import { Link } from 'nextjs13-progress';
@@ -29,9 +30,22 @@ function StoreList({ store }: { store: Store }) {
         <Card className="h-80 flex flex-col">
           <CardHeader className="p-0">
             <div className="bg-zinc-100 dark:bg-zinc-900 h-32 flex items-center justify-center rounded-t-lg border-b">
-              <span className="text-sm text-zinc-700 dark:text-zinc-200">
-                Logo Store
-              </span>
+              {store.store_logo_url ? (
+                <div className="flex flex-col">
+                  <Image
+                    src={store.store_logo_url as string}
+                    alt="Logo store image"
+                    sizes="100%"
+                    width={120}
+                    height={55}
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                </div>
+              ) : (
+                <span className="text-sm text-zinc-700 dark:text-zinc-200">
+                  Logo Store
+                </span>
+              )}
             </div>
           </CardHeader>
           <CardContent className="flex-auto p-6">
